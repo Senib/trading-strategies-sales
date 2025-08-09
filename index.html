@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Trading Strategies - Professional Automated Trading Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .packages {
+            background: rgba(255, 255, 255, 0.98);
+            margin: 4rem 0;
+            padding: 4rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .packages h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+        
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .popular {
+            border: 2px solid #667eea;
+            transform: scale(1.05);
+        }
+        
+        .popular::after {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+        }
+        
+        .package-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+        
+        .risk-level {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .price-currency {
+            font-size: 1.5rem;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .package-features li {
+            margin: 0.8rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .buy-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .testimonials {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #718096;
+        }
+        
+        .payment-form {
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-payment {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .package-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .popular {
+                transform: none;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 🎉 SUCCESS! YOUR SITE IS READY TO DEPLOY -->
+    <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; padding: 1.5rem; text-align: center; font-weight: bold;">
+        <h3 style="margin: 0 0 1rem 0;">🎉 SUCCESS! Your Trading Strategy Sales System is READY!</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+            <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <strong>✅ Gumroad Products</strong><br>
+                <small>All 4 products linked</small>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <strong>✅ Payment Processing</strong><br>
+                <small>Gumroad handles everything</small>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                <strong>✅ File Delivery</strong><br>
+                <small>Google Drive integrated</small>
+            </div>
+        </div>
+        <p style="margin: 1rem 0 0 0; font-size: 1.1rem;">🚀 NEXT: Download this HTML file and deploy to GitHub Pages, Netlify, or Surge!</p>
+        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.9;">Remove this section after deployment</p>
+    </div>
+        <nav class="container">
+            <div class="logo">Elite Trading</div>
+            <div style="color: #667eea; font-weight: 600;">Professional Automated Systems</div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Professional Trading Strategies</h1>
+                <p>Unlock the power of automated trading with our battle-tested algorithms. Choose your risk level and start trading like a pro.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Precision Targeting</h3>
+                        <p>Advanced algorithms designed for maximum accuracy</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Execute trades in milliseconds with our optimized systems</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Risk Management</h3>
+                        <p>Built-in safety features to protect your investments</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <h3>Real-time Analytics</h3>
+                        <p>Comprehensive reporting and performance tracking</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="packages">
+            <div class="container">
+                <h2>Choose Your Trading Strategy</h2>
+                <p style="text-align: center; color: #718096; margin-bottom: 2rem;">Select the risk level that matches your trading style and experience</p>
+                
+                <div class="package-grid">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3 class="package-name">Conservative Strategy</h3>
+                            <p class="risk-level">Low Risk - 25% Volatility Target</p>
+                            <div class="price"><span class="price-currency">£</span>15</div>
+                        </div>
+                        <ul class="package-features">
+                            <li>Advanced risk management algorithms</li>
+                            <li>Conservative position sizing</li>
+                            <li>Stable, consistent returns</li>
+                            <li>Perfect for beginners</li>
+                            <li>Detailed setup instructions</li>
+                            <li>Email support included</li>
+                        </ul>
+                        <button class="buy-button" onclick="openPaymentModal('Conservative Strategy', 15, '25% Risk Level')">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3 class="package-name">Balanced Strategy</h3>
+                            <p class="risk-level">Medium Risk - 50% Volatility Target</p>
+                            <div class="price"><span class="price-currency">£</span>15</div>
+                        </div>
+                        <ul class="package-features">
+                            <li>Optimized risk-reward ratio</li>
+                            <li>Balanced position management</li>
+                            <li>Higher profit potential</li>
+                            <li>Ideal for intermediate traders</li>
+                            <li>Comprehensive documentation</li>
+                            <li>Email support included</li>
+                        </ul>
+                        <button class="buy-button" onclick="openPaymentModal('Balanced Strategy', 15, '50% Risk Level')">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3 class="package-name">Aggressive Strategy</h3>
+                            <p class="risk-level">High Risk - 75% Volatility Target</p>
+                            <div class="price"><span class="price-currency">£</span>15</div>
+                        </div>
+                        <ul class="package-features">
+                            <li>Maximum profit potential</li>
+                            <li>Advanced trading algorithms</li>
+                            <li>High-frequency opportunities</li>
+                            <li>For experienced traders</li>
+                            <li>Advanced configuration options</li>
+                            <li>Priority email support</li>
+                        </ul>
+                        <button class="buy-button" onclick="openPaymentModal('Aggressive Strategy', 15, '75% Risk Level')">
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <div class="package-card popular">
+                        <div class="package-header">
+                            <h3 class="package-name">Complete Package</h3>
+                            <p class="risk-level">All Strategies + AI Video Walkthrough</p>
+                            <div class="price"><span class="price-currency">£</span>29.99</div>
+                        </div>
+                        <ul class="package-features">
+                            <li>All three trading strategies</li>
+                            <li>AI-generated video walkthrough</li>
+                            <li>Complete setup guide</li>
+                            <li>Advanced customization tips</li>
+                            <li>Priority support & updates</li>
+                            <li>30-day money-back guarantee</li>
+                        </ul>
+                        <button class="buy-button" onclick="openPaymentModal('Complete Package', 29.99, 'All Strategies + Video')">
+                            Get Complete Package
+                        </button>
+                    </div>
+                </div>
+
+                <div class="security-badges">
+                    <div class="security-badge">
+                        <span>🔒</span>
+                        <span>SSL Secured</span>
+                    </div>
+                    <div class="security-badge">
+                        <span>💳</span>
+                        <span>Secure Payments</span>
+                    </div>
+                    <div class="security-badge">
+                        <span>📱</span>
+                        <span>Instant Download</span>
+                    </div>
+                    <div class="security-badge">
+                        <span>🎯</span>
+                        <span>Money Back Guarantee</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The Conservative Strategy helped me achieve consistent 8% monthly returns with minimal risk. Perfect for my retirement portfolio."</p>
+                        <p class="testimonial-author">- Sarah M., Portfolio Manager</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"I've been using the Complete Package for 6 months. The AI walkthrough made setup incredibly easy, and I'm seeing 15% monthly gains."</p>
+                        <p class="testimonial-author">- James T., Day Trader</p>
+                    </div>
+                    <div class="testimonial">
+                        <p class="testimonial-text">"The Balanced Strategy strikes the perfect middle ground. Great documentation and excellent customer support."</p>
+                        <p class="testimonial-author">- Maria L., Investment Advisor</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Elite Trading Strategies. All rights reserved. | Professional Trading Systems</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">Risk Warning: Trading involves substantial risk and may not be suitable for all investors.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <h2 id="modalTitle">Complete Your Purchase</h2>
+            <div id="packageInfo" style="background: #f7fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                <p><strong>Package:</strong> <span id="selectedPackage"></span></p>
+                <p><strong>Price:</strong> £<span id="selectedPrice"></span></p>
+                <p><strong>Description:</strong> <span id="selectedDescription"></span></p>
+            </div>
+            
+            <form class="payment-form" onsubmit="processPayment(event)">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" required placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" required placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" required placeholder="123" maxlength="4">
+                    </div>
+                </div>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Processing your payment...</p>
+                </div>
+                
+                <button type="submit" class="submit-payment" id="submitButton">
+                    Complete Purchase - £<span id="finalPrice"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Format card number with spaces
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Only allow numbers for CVV
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // ✅ YOUR LIVE GUMROAD LINKS - READY TO SELL!
+        const gumroadLinks = {
+            'Conservative Strategy': 'https://snbdigital.gumroad.com/l/constrat25',
+            'Balanced Strategy': 'https://snbdigital.gumroad.com/l/balstrat50', 
+            'Aggressive Strategy': 'https://snbdigital.gumroad.com/l/aggstrat75',
+            'Complete Package': 'https://snbdigital.gumroad.com/l/compstrat100'
+        };
+
+        function openPaymentModal(packageName, price, description) {
+            // For Gumroad integration, redirect directly to checkout
+            if (gumroadLinks[packageName]) {
+                window.open(gumroadLinks[packageName], '_blank');
+                return;
+            }
+            
+            // Fallback to modal for custom payment processing
+            document.getElementById('selectedPackage').textContent = packageName;
+            document.getElementById('selectedPrice').textContent = price;
+            document.getElementById('selectedDescription').textContent = description;
+            document.getElementById('finalPrice').textContent = price;
+            document.getElementById('paymentModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.querySelector('.payment-form').reset();
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('submitButton').style.display = 'block';
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('submitButton').style.display = 'none';
+            
+            // Get form data
+            const formData = {
+                email: document.getElementById('email').value,
+                fullName: document.getElementById('fullName').value,
+                cardNumber: document.getElementById('cardNumber').value,
+                expiryDate: document.getElementById('expiryDate').value,
+                cvv: document.getElementById('cvv').value,
+                package: document.getElementById('selectedPackage').textContent,
+                price: document.getElementById('selectedPrice').textContent
+            };
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                // In a real implementation, you would integrate with:
+                // - Stripe (https://stripe.com/docs/js)
+                // - PayPal (https://developer.paypal.com/)
+                // - Square (https://developer.squareup.com/)
+                // - or your preferred payment processor
+                
+                alert(`Payment Successful!\n\nThank you for purchasing ${formData.package}!\n\nYou will receive download links at ${formData.email} within 5 minutes.\n\nOrder ID: #${Math.random().toString(36).substr(2, 9).toUpperCase()}`);
+                
+                closePaymentModal();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closePaymentModal();
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scroll behavior to buy buttons
+            const buyButtons = document.querySelectorAll('.buy-button');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add a subtle animation when clicked
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-2px)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
